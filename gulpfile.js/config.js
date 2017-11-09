@@ -220,25 +220,28 @@ module.exports = {
     backstopConfig: './backstop.json'
   },
 
-  browserSync: [{
-    ui: false,
-    port: 9032,
-    open: false,
-    server: {
-      baseDir: '.',
-      routes: {
-        '/assets': dest
+  browserSync: {
+    assets: {
+      ui: false,
+      port: 9032,
+      open: false,
+      server: {
+        baseDir: '.',
+        routes: {
+          '/assets': dest
+        }
       }
-    }
-  }, {
-    ui: false,
-    port: 9033,
-    open: false,
-    server: 'component-library'
-  }, {
-    ui: false,
-    port: 9034,
-    open: false,
-    server: 'design-pattern-library'
-  }]
+    },
+    componentLibrary: {
+      ui: false,
+      port: 9033,
+      open: true,
+      server: 'component-library'
+    },
+    patternLibrary: {
+      ui: false,
+      port: 9034,
+      open: false,
+      server: 'design-pattern-library'
+    }}
 }

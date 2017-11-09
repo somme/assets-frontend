@@ -8,13 +8,20 @@ gulp.task('watch', ['server'], function (callback) {
 
   gulp.watch([
     config.scripts.src,
+    config.scripts.entryPoint,
+    config.patternLibrary.src.map((dir) => `${dir}/**/*`)
+  ], ['pattern-library'])
+
+  gulp.watch(config.test.src, ['test'])
+})
+
+gulp.task('watch:component-library', function (callback) {
+  gulp.watch(config.scripts.gulpTasks, ['lint:gulpTasks', 'test:gulpTasks'])
+
+  gulp.watch([
+    config.scripts.src,
     config.scripts.entryPoint
   ], ['component-library'])
-
-  gulp.watch(
-    config.patternLibrary.src.map((dir) => `${dir}/**/*`),
-    ['pattern-library']
-  )
 
   gulp.watch(config.test.src, ['test'])
 

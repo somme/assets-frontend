@@ -3,7 +3,18 @@ const browserSync = require('browser-sync')
 const config = require('../config').browserSync
 
 gulp.task('server', () => {
-  config.forEach((conf, i) => {
-    browserSync.create(`${i}`).init(conf)
+  const servers = [
+    config.assets,
+    config.patternLibrary
+  ]
+
+  servers.forEach((server, i) => {
+    browserSync.create(`${i}`).init(server)
   })
+})
+
+gulp.task('server:component-library', () => {
+  browserSync
+    .create('component-library')
+    .init(config.componentLibrary)
 })

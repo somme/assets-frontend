@@ -4,14 +4,15 @@ var del = require('del')
 var path = require('path')
 var gulp = require('gulp')
 var exec = require('child_process').exec
+var runSequence = require('run-sequence')
 var config = require('../config')
 var compLibConfig = require('../../component-lib.json')
 
-gulp.task('clean-comp-lib', function (cb) {
+gulp.task('clean-component-library', function (cb) {
   del(compLibConfig.destination, cb)
 })
 
-gulp.task('component-library', ['clean-comp-lib', 'sass', 'images', 'browserify'], function (cb) {
+gulp.task('build-component-library', function (cb) {
   var env = global.runmode
   var genCompLib = './node_modules/.bin/kss-node --config component-lib.json'
 
@@ -27,4 +28,13 @@ gulp.task('component-library', ['clean-comp-lib', 'sass', 'images', 'browserify'
 
     cb(err)
   })
+})
+
+gulp.task('component-library', function (cb) {
+  runSequence(
+    ['clean-component-library', 'sass', 'images', 'browserify'],
+    'build-component-library',
+    'server:component-library',
+    'watch:component-library'
+  )
 })

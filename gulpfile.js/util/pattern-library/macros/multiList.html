@@ -1,0 +1,11 @@
+{% macro multiList(files) %}
+<div class="example multi-list">
+  {% for file in files %}
+  <div class="multi-list">
+    <div class="scale-wrapper">
+      <div class="scale">{% include file %}</div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endmacro %}
